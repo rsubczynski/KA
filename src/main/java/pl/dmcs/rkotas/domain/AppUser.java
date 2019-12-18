@@ -34,6 +34,8 @@ public class AppUser {
 
     private String secretFlatCode;
 
+    @OneToOne(cascade = {CascadeType.ALL})
+    private AppUserData userData;
 
 }
 

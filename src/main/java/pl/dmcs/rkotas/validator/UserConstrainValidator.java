@@ -7,8 +7,6 @@ import javax.validation.ConstraintValidatorContext;
 
 public class UserConstrainValidator implements ConstraintValidator<ExistUserValidator, String> {
 
-   private String userEmail;
-
    private final AppUserService appUserService;
 
    public UserConstrainValidator(AppUserService appUserService) {
@@ -16,11 +14,10 @@ public class UserConstrainValidator implements ConstraintValidator<ExistUserVali
    }
 
    public void initialize(ExistUserValidator email) {
-      userEmail = email.value();
    }
 
-   public boolean isValid(String obj, ConstraintValidatorContext context) {
-      return appUserService.isExistByEmail(userEmail);
+   public boolean isValid(String userEmail, ConstraintValidatorContext context) {
+      return !appUserService.isExistByEmail(userEmail);
    }
 
 }

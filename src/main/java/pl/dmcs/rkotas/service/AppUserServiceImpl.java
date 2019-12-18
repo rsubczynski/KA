@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.dmcs.rkotas.dao.AppUserRepository;
 import pl.dmcs.rkotas.dao.AppUserRoleRepository;
 import pl.dmcs.rkotas.domain.AppUser;
+import pl.dmcs.rkotas.domain.AppUserData;
 import pl.dmcs.rkotas.dto.RegisterForm;
 
 @Service
@@ -32,12 +33,14 @@ public class AppUserServiceImpl implements AppUserService {
         return appUserRepository.findByEmail(login);
     }
 
+    @Transactional
     @Override
     public AppUser addUseAfterRegister(RegisterForm registerForm) {
         AppUser appUser = new AppUser();
         appUser.setEmail(registerForm.getEmail());
         appUser.setPassword(hashPassword(registerForm.getPassword()));
         appUser.setUidUser(System.currentTimeMillis());
+        appUser.setUserData(new AppUserData());
         appUser.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_GUEST"));
         appUser.setEnable(false);
         appUser.setSecretFlatCode("secretCode");
