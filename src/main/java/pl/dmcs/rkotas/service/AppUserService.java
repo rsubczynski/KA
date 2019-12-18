@@ -1,6 +1,5 @@
 package pl.dmcs.rkotas.service;
 
-import org.springframework.stereotype.Service;
 import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.dto.RegisterForm;
 

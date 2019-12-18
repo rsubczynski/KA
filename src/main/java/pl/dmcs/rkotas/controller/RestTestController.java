@@ -5,9 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.dmcs.rkotas.domain.*;
-import pl.dmcs.rkotas.domain.charges.Electricity;
 import pl.dmcs.rkotas.service.AppUserService;
-import pl.dmcs.rkotas.service.BlockService;
+import pl.dmcs.rkotas.service.RestInitService;
 
 import java.util.*;
 
@@ -16,11 +15,11 @@ import java.util.*;
 public class RestTestController {
 
     private AppUserService appUserService;
-    private BlockService blockService;
+    private RestInitService restInitService;
 
-    public RestTestController(AppUserService appUserService, BlockService blockService) {
+    public RestTestController(AppUserService appUserService, RestInitService restInitService) {
         this.appUserService = appUserService;
-        this.blockService = blockService;
+        this.restInitService = restInitService;
     }
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,7 +33,8 @@ public class RestTestController {
 
     @GetMapping(value = "/addBlock", produces = MediaType.APPLICATION_JSON_VALUE)
     private void addBlock() {
-
+        restInitService.initBlock1();
+        restInitService.initBlock2();
     }
 
 }

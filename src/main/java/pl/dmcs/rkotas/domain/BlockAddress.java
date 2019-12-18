@@ -1,9 +1,6 @@
 package pl.dmcs.rkotas.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name="blockAddress")
 public class BlockAddress {
 

@@ -11,13 +11,12 @@ public class LoginController {
 
     private final AppUserService appUserService;
 
-    LoginController(
-    AppUserService appUserService) {
+    LoginController(AppUserService appUserService) {
         this.appUserService = appUserService;
     }
 
     @RequestMapping("/")
-    public String home(){
+    public String home() {
         return "login";
     }
 
@@ -40,9 +39,9 @@ public class LoginController {
     @RequestMapping(value = "/active")
     public String activeAccount(@RequestParam(value = "userUid") long uid, Model model) {
         boolean isUserActive = appUserService.activateUser(uid);
-        if(isUserActive){
+        if (isUserActive) {
             model.addAttribute("accountActive", true);
-        }else{
+        } else {
             model.addAttribute("accountNotFound", true);
         }
 
