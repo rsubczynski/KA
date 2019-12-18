@@ -45,7 +45,7 @@
 
     <definition name="accommodation" extends="base.definition">
         <put-attribute name="title" value="Accommodation" />
-        <put-attribute name="body" value="/views/accommodation/accommodation.jsp" />
+        <put-attribute name="body" value="/views/users/guest/accommodation/accommodation.jsp" />
     </definition>
 
 </tiles-definitions>
