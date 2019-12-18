@@ -20,7 +20,7 @@ public class AccommodationForm {
     private String lastName;
 
     @NotBlank(message = "{error.required}")
-    @Pattern(regexp="(^$|[0-9]{9})", message = "invalid phone number")
+    @Pattern(regexp="(^$|[0-9]{9})", message = "{error.invalid.phoneNumber}")
     private String telephone;
 
     @NotBlank(message = "{error.required}")
