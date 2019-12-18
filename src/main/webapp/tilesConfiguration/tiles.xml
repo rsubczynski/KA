@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC 
+		"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+		"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+       
+<tiles-definitions>
+    <definition name="base.definition"
+        template="/views/common/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/views/common/header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/views/common/footer.jsp" />
+    </definition>
+
+    <definition name="accessDenied" extends="base.definition">
+        <put-attribute name="title" value="AccessDenied" />
+        <put-attribute name="body" value="/views/common/accessDenied.jsp" />
+    </definition>
+ 
+    <definition name="appUser" extends="base.definition">
+        <put-attribute name="title" value="AppUser" />
+        <put-attribute name="body" value="/views/appUser.jsp" />
+    </definition>
+
+    <definition name="login" extends="base.definition">
+        <put-attribute name="title" value="Login" />
+        <put-attribute name="body" value="/views/login/login.jsp" />
+    </definition>
+
+    <definition name="register" extends="base.definition">
+        <put-attribute name="title" value="Register" />
+        <put-attribute name="body" value="/views/register/register.jsp" />
+    </definition>
+
+    <definition name="appUserRole" extends="base.definition">
+        <put-attribute name="title" value="AppUserRole" />
+        <put-attribute name="body" value="/views/appUserRole.jsp" />
+    </definition>
+
+    <definition name="dashboard" extends="base.definition">
+        <put-attribute name="title" value="Dashboard" />
+        <put-attribute name="body" value="/views/dashboard/dashboard.jsp" />
+    </definition>
+
+    <definition name="accommodation" extends="base.definition">
+        <put-attribute name="title" value="Accommodation" />
+        <put-attribute name="body" value="/views/accommodation/accommodation.jsp" />
+    </definition>
+
+</tiles-definitions>
+
+

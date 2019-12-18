@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+DIV.header {
+	color: white;
+	background-image: url('https://s2.best-wallpaper.net/wallpaper/1920x1080/1601/Beautiful-city-night-Hong-Kong-China-buildings-lights_1920x1080.jpg');
+	background-size: 90%;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 400px;
+	width: 100%;
+	font-family: sans-serif;
+	vertical-align: middle;
+	line-height: 400px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 300%;
+	font-style: italic;
+}
