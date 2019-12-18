@@ -25,7 +25,7 @@ public class RestTestController {
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     private AppUser test() {
-        AppUser appUser =appUserService.findByEmail("radoslaw.subczynski@gmail.com");
+        AppUser appUser = appUserService.findByEmail("radoslaw.subczynski@gmail.com");
 
 //        appUser.setFlat();
 
@@ -33,57 +33,8 @@ public class RestTestController {
     }
 
     @GetMapping(value = "/addBlock", produces = MediaType.APPLICATION_JSON_VALUE)
-    private Block addBlock() {
-        Block block1 = new Block();
-        BlockAddress address = new BlockAddress();
-        address.setCity("Warta");
-        address.setCountry("Poland");
-        address.setPostalCode("98-290");
-        address.setStreet("Górna");
+    private void addBlock() {
 
-        block1.setBlockAddress(address);
-
-        Set<Flat> flatList = new HashSet<>();
-        Flat flat = new Flat();
-        flat.setFlatArea(1);
-        flat.setLocaleNumber(1);
-        flat.setBlockAddress(address);
-        flat.setSecretCode("dupa0");
-
-        Set<Bill> bills = new HashSet<>();
-
-        Bill bill = new Bill();
-        Electricity electricity = new Electricity();
-        electricity.setCount(10);
-        electricity.setPrice(20);
-        bill.setElectricityList(electricity);
-        bill.setElectricityList(electricity);
-        bill.setElectricityList(electricity);
-        bill.setElectricityList(electricity);
-        bill.setElectricityList(electricity);
-        bills.add(bill);
-        flat.setBills(bills);
-
-        Flat flat1 = new Flat();
-        flat1.setFlatArea(2);
-        flat1.setLocaleNumber(2);
-        flat1.setSecretCode("dupa1");
-        flat1.setBlockAddress(address);
-
-        Flat flat2 = new Flat();
-        flat2.setFlatArea(3);
-        flat2.setLocaleNumber(3);
-        flat2.setSecretCode("dupa2");
-        flat2.setBlockAddress(address);
-
-        flatList.add(flat);
-        flatList.add(flat1);
-        flatList.add(flat2);
-
-        block1.setAdministrator(appUserService.findByEmail("radoslaw.subczynski@gmail.com"));
-
-        block1.setFlats(flatList);
-
-        return blockService.save(block1);
     }
+
 }
