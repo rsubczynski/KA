@@ -7,19 +7,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.dmcs.rkotas.service.AppUserService;
 
 @Controller
-public class SpringSecurityCustomPagesController {
+public class LoginController {
 
     private final AppUserService appUserService;
 
-    SpringSecurityCustomPagesController(
+    LoginController(
     AppUserService appUserService) {
         this.appUserService = appUserService;
+    }
+
+    @RequestMapping("/")
+    public String home(){
+        return "login";
     }
 
     @RequestMapping(value = "/login")
     public String customLogin(@RequestParam(value = "error", required = false) String error,
                               @RequestParam(value = "logout", required = false) String logout,
                               Model model) {
+
         if (error != null) {
             model.addAttribute("error", true);
         }
@@ -33,10 +39,11 @@ public class SpringSecurityCustomPagesController {
 
     @RequestMapping(value = "/active")
     public String activeAccount(@RequestParam(value = "userUid") long uid, Model model) {
-        if(appUserService.activateUser(uid)){
+        boolean isUserActive = appUserService.activateUser(uid);
+        if(isUserActive){
             model.addAttribute("accountActive", true);
         }else{
-            model.addAttribute("accountNotActive", true);
+            model.addAttribute("accountNotFound", true);
         }
 
         return "login";

@@ -27,13 +27,13 @@ public class RegisterController {
         this.userService = userService;
     }
 
-    @GetMapping( value = {"", "/"})
+    @GetMapping(value = {"", "/"})
     public String register(Model model) {
         model.addAttribute("registerForm", new RegisterForm());
         return "register";
     }
 
-    @PostMapping( value = {"", "/"})
+    @PostMapping(value = {"", "/"})
     public String register(@Valid @ModelAttribute("registerForm") RegisterForm registerForm, BindingResult result,
                            HttpServletRequest request, Model model) {
 
@@ -46,8 +46,8 @@ public class RegisterController {
             return "register";
         }
         AppUser createdUser = userService.addUseAfterRegister(registerForm);
-        emailService.sendSimpleMessage(createdUser,request);
-        return "login";
+        emailService.sendMessageToUser(createdUser, request);
 
+        return "login";
     }
 }

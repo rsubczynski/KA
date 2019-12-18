@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
     <div class="navbar-collapse">
 
-        <a class="navbar-brand" href="#">OSIEDLE</a>
+        <a class="navbar-brand" href="/dashboard">OSIEDLE</a>
 
         <ul class="navbar-nav ml-auto">
 

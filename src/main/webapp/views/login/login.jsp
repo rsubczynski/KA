@@ -22,8 +22,8 @@
             <div class="alert alert-warning" role="alert"><spring:message code="label.accountActive"/></div>
         </c:if>
 
-        <c:if test="${not empty accountNotActive}">
-            <div class="alert alert-warning" role="alert">Zjebales</div>
+        <c:if test="${not empty accountNotFound}">
+            <div class="alert alert-warning" role="alert"><spring:message code="label.accountNotFound"/></div>
         </c:if>
 
 
