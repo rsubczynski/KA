@@ -11,15 +11,14 @@
 
         <ul class="navbar-nav ml-auto">
 
-
             <sec:authorize access="hasRole('ROLE_USER')">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="user" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false"><spring:message code="label.user"/></a>
                     <div class="dropdown-menu" aria-labelledby="user">
-                        <a class="dropdown-item" href="#">TO DO option1</a>
-                        <a class="dropdown-item" href="#">TO DO option1</a>
-                        <a class="dropdown-item" href="#">TO DO option1</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/user/data"><spring:message code="label.userData"/></a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/user/meter"><spring:message code="label.meterReading"/></a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/user/payment"><spring:message code="label.payment"/></a>
                     </div>
                 </li>
             </sec:authorize>

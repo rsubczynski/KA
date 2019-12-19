@@ -72,7 +72,10 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUser addDataToUser(String username, AccommodationForm accommodationForm) {
         AppUser appUser = appUserRepository.findByEmail(username);
-        appUser.getAppUserRole().clear();
+
+        //TODO : works ?
+        appUser.getAppUserRole().removeIf(role -> role.getRole().equals("ROLE_GUEST"));
+
         appUser.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_USER"));
 
         AppUserData userData = new AppUserData();

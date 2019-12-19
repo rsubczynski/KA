@@ -45,7 +45,22 @@
 
     <definition name="accommodation" extends="base.definition">
         <put-attribute name="title" value="Accommodation" />
-        <put-attribute name="body" value="/views/users/guest/accommodation/accommodation.jsp" />
+        <put-attribute name="body" value="/views/users/guest/accommodation.jsp" />
+    </definition>
+
+    <definition name="userData" extends="base.definition">
+        <put-attribute name="title" value="User Data" />
+        <put-attribute name="body" value="/views/users/user/userData.jsp" />
+    </definition>
+
+    <definition name="userMeterReading" extends="base.definition">
+        <put-attribute name="title" value="User Meter" />
+        <put-attribute name="body" value="/views/users/user/userMeterReading.jsp" />
+    </definition>
+
+    <definition name="userPayment" extends="base.definition">
+        <put-attribute name="title" value="User Payment" />
+        <put-attribute name="body" value="/views/users/user/userPayment.jsp" />
     </definition>
 
 </tiles-definitions>
