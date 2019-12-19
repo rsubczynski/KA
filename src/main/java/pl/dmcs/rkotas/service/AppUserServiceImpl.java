@@ -8,6 +8,8 @@ import pl.dmcs.rkotas.dao.AppUserRepository;
 import pl.dmcs.rkotas.dao.AppUserRoleRepository;
 import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.AppUserData;
+import pl.dmcs.rkotas.domain.Flat;
+import pl.dmcs.rkotas.dto.AccommodationForm;
 import pl.dmcs.rkotas.dto.RegisterForm;
 
 @Service
@@ -15,13 +17,15 @@ public class AppUserServiceImpl implements AppUserService {
 
     private AppUserRepository appUserRepository;
     private AppUserRoleRepository appUserRoleRepository;
+    private FlatService flatService;
 
     @Autowired
-    public AppUserServiceImpl(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository) {
+    public AppUserServiceImpl(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository,
+                              FlatService flatService) {
         this.appUserRepository = appUserRepository;
         this.appUserRoleRepository = appUserRoleRepository;
+        this.flatService = flatService;
     }
-
 
     private String hashPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -35,7 +39,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Transactional
     @Override
-    public AppUser addUseAfterRegister(RegisterForm registerForm) {
+    public AppUser addUseAfterRegister(RegisterForm registerForm, Flat flat) {
         AppUser appUser = new AppUser();
         appUser.setEmail(registerForm.getEmail());
         appUser.setPassword(hashPassword(registerForm.getPassword()));
@@ -43,7 +47,7 @@ public class AppUserServiceImpl implements AppUserService {
         appUser.setUserData(new AppUserData());
         appUser.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_GUEST"));
         appUser.setEnable(false);
-        appUser.setSecretFlatCode("secretCode");
+        appUser.setSecretFlatCode(flat.getSecretCode());
 
         return appUserRepository.save(appUser);
     }
@@ -63,6 +67,21 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public boolean isExistByEmail(String email) {
         return appUserRepository.existsByEmail(email);
+    }
+
+    @Override
+    public AppUser addDataToUser(String username, AccommodationForm accommodationForm) {
+        AppUser appUser = appUserRepository.findByEmail(username);
+        appUser.getAppUserRole().clear();
+        appUser.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_USER"));
+
+        AppUserData userData = new AppUserData();
+        userData.setFirstName(accommodationForm.getFirstName());
+        userData.setLastName(accommodationForm.getLastName());
+        userData.setPhoneNumber(accommodationForm.getTelephone());
+        userData.setFlat(flatService.findBySecretCode(accommodationForm.getSecretCode()));
+
+        return appUserRepository.save(appUser);
     }
 
 }

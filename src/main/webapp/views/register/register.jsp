@@ -26,6 +26,12 @@
             <div class="msg">${msg}</div>
         </c:if>
 
+        <c:if test="${not empty notFoundFreeFlat}">
+            <div class="error">Brak wolnych mieszkan</div>
+        </c:if>
+
+
+
         <form:form name='registerForm' action="/register" method='POST' modelAttribute="registerForm">
             <c:set var="emailHasBindError">
                 <form:errors path="email"/>

@@ -34,5 +34,6 @@ public class Flat {
 
     private String secretCode;
 
+    private boolean isReserved;
 
 }

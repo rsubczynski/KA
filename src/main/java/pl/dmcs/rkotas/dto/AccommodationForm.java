@@ -3,6 +3,7 @@ package pl.dmcs.rkotas.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
+import pl.dmcs.rkotas.validator.SecretCodeValidator;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,5 +25,6 @@ public class AccommodationForm {
     private String telephone;
 
     @NotBlank(message = "{error.required}")
+    @SecretCodeValidator(message = "{error.invalid.secretCode}")
     private String secretCode;
 }

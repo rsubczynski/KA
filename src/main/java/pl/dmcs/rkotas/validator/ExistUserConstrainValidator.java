@@ -5,11 +5,11 @@ import pl.dmcs.rkotas.service.AppUserService;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UserConstrainValidator implements ConstraintValidator<ExistUserValidator, String> {
+public class ExistUserConstrainValidator implements ConstraintValidator<ExistUserValidator, String> {
 
    private final AppUserService appUserService;
 
-   public UserConstrainValidator(AppUserService appUserService) {
+   public ExistUserConstrainValidator(AppUserService appUserService) {
       this.appUserService = appUserService;
    }
 

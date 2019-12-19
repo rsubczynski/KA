@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
     private String getMessage(AppUser user, String contextPath, String secretCode) {
         return "Aby się zalogować kliknij w link aktywyujacy \n" +
                 contextPath + "/active?userUid=" + user.getUidUser() + "\n"
-                + "Twoj Secret Code to : tesstowy !:)";
+                + "Twoj Secret Code to :" + secretCode;
     }
 
     private String createUrl(HttpServletRequest request) {
