@@ -23,7 +23,7 @@ public class Flat {
     @NotNull
     private double flatArea;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Bill> bills = new HashSet<Bill>(0);
 
     @ManyToOne

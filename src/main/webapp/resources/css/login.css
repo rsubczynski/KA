@@ -27,6 +27,10 @@
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+.left-text {
+	text-align: left;
+}
+
 .form {
 	position: relative;
 	z-index: 1;

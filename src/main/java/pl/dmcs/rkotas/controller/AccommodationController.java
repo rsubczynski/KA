@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.dmcs.rkotas.authentication.AuthenticationFacade;
 import pl.dmcs.rkotas.dto.AccommodationForm;
 import pl.dmcs.rkotas.service.AppUserService;
 
@@ -19,10 +20,12 @@ import javax.validation.Valid;
 public class AccommodationController {
 
     private final AppUserService appUserService;
+    private final AuthenticationFacade authenticationFacade;
 
     @Autowired
-    public AccommodationController(AppUserService appUserService) {
+    public AccommodationController(AppUserService appUserService, AuthenticationFacade authenticationFacade) {
         this.appUserService = appUserService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @RequestMapping( value = {"", "/"})
@@ -37,8 +40,7 @@ public class AccommodationController {
         if (result.hasErrors()) {
             return "accommodation";
         }
-        UserDetails principal  = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        appUserService.addDataToUser(principal.getUsername(), accommodationForm);
+        appUserService.addDataToUser(authenticationFacade.getLoginUser().getUsername(), accommodationForm);
 
         return "redirect:/dashboard";
 

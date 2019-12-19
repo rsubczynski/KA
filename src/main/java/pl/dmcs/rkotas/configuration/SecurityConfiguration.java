@@ -46,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       http.authorizeRequests()
               .antMatchers("/dashboard").authenticated()
               .antMatchers("/accommodation").authenticated()
+              .antMatchers("/user/**").hasRole("USER")
         .and().formLogin().loginPage("/login").permitAll() // with custom login page
         .usernameParameter("login").passwordParameter("password")
               .defaultSuccessUrl("/dashboard")

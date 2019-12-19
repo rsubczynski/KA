@@ -1,6 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <body>
-<h1>meterReading </h1>
+
+<div class="app-window">
+
+    <div class="app-window-container">
+        <h1><spring:message code="label.meterReading"/></h1>
+    </div>
+
+</div>
+
+
 </body>
 </html>

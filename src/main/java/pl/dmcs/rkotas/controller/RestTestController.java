@@ -8,7 +8,6 @@ import pl.dmcs.rkotas.domain.*;
 import pl.dmcs.rkotas.service.AppUserService;
 import pl.dmcs.rkotas.service.RestInitService;
 
-import java.util.*;
 
 @RestController
 @RequestMapping(value ="/rest")

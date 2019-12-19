@@ -83,6 +83,7 @@ public class AppUserServiceImpl implements AppUserService {
         userData.setLastName(accommodationForm.getLastName());
         userData.setPhoneNumber(accommodationForm.getTelephone());
         userData.setFlat(flatService.findBySecretCode(accommodationForm.getSecretCode()));
+        appUser.setUserData(userData);
 
         return appUserRepository.save(appUser);
     }

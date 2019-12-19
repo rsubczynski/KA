@@ -35,4 +35,8 @@ public class Bill {
 
     @OneToOne(cascade = CascadeType.ALL)
     private RepairFund repairFund;
+
+    private double totalCount;
+
+    private boolean isPayment;
 }
