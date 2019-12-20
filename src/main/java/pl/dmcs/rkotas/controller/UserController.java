@@ -3,7 +3,6 @@ package pl.dmcs.rkotas.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.dmcs.rkotas.authentication.AuthenticationFacade;
@@ -11,7 +10,8 @@ import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.Bill;
 import pl.dmcs.rkotas.service.AppUserService;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,24 +29,37 @@ public class UserController {
     }
 
     @GetMapping(value = {"/data"})
-    public String data(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page, Model model) {
+    public String data(@RequestParam(value = "page", required = false, defaultValue = "0") String page, Model model) {
+
         AppUser appUser = appUserService.findByEmail(
                 authenticationFacade.getLoginUser().getUsername());
         List<Bill> billList = new ArrayList<>(appUser.getUserData().getFlat().getBills());
-
-        if(page <0 || page> billList.size()){
-            //TODO : ZABEZPIECZ TO!
-            System.out.println("Zaraz cos jebnie! :)");
-        }
-        model.addAttribute("localDateTimeFormat", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm"));
         model.addAttribute("user", appUser);
-        model.addAttribute("bill", billList.get(page));
+        model.addAttribute("bill", new Bill());
 
-        if (page + 1 < billList.size())
-            model.addAttribute("nextPage", page + 1);
+        int parsePAge = 0;
 
-        if (page > 0) {
-            model.addAttribute("previouslyPage", page - 1);
+        try {
+            parsePAge = Integer.parseInt(page);
+        } catch (NumberFormatException e) {
+            model.addAttribute("pageError", true);
+            return "userData";
+        }
+
+        if (parsePAge < 0 || parsePAge +1 > billList.size()) {
+            model.addAttribute("pageError", true);
+            return "userData";
+        }
+
+        model.addAttribute("data", DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+                .format(billList.get(parsePAge).getLocaleData()));
+        model.addAttribute("bill", billList.get(parsePAge));
+
+        if (parsePAge + 1 < billList.size())
+            model.addAttribute("nextPage", parsePAge + 1);
+
+        if (parsePAge > 0) {
+            model.addAttribute("previouslyPage", parsePAge - 1);
         }
         return "userData";
     }

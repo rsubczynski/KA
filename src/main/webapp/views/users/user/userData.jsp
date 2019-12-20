@@ -1,11 +1,9 @@
-<jsp:useBean id="localDateTimeFormat" scope="request" type="java.text.SimpleDateFormat"/>
 <jsp:useBean id="bill" scope="request" type="pl.dmcs.rkotas.domain.Bill"/>
 <jsp:useBean id="user" scope="request" type="pl.dmcs.rkotas.domain.AppUser"/>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <html>
 <body>
@@ -73,8 +71,16 @@
 
     <div class="app-window-container">
 
+    <c:if test="${not empty pageError}">
+        <div class="error"><spring:message code="label.page.error"/></div>
+
+    </c:if>
+
+    <c:if test="${empty pageError}">
+
         <h1><spring:message code="label.charges"/></h1>
-        <h6><spring:message code="label.charges.data"/> : ${localDateTimeFormat.parse(bill.localeData)}</h6>
+        <h6><spring:message code="label.charges.data"/> : ${data}</h6>
+
         <br>
         <table class="table">
             <thead>
@@ -83,7 +89,7 @@
                 <th scope="col"><spring:message code="label.charges"/></th>
                 <th scope="col"><spring:message code="label.charges.rate"/></th>
                 <th scope="col"><spring:message code="label.charges.count"/></th>
-                <th scope="col"><spring:message code="label.charges.sum"/></th>
+                <th scope="col"><spring:message code="label.charges.price"/></th>
             </tr>
             </thead>
             <tbody>
@@ -139,7 +145,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <button class="btn btn-primary" type="button">Zapłać</button>
+                        <button class="btn btn-primary" type="button"><spring:message code="button.pay"/></button>
                     </td>
                 </tr>
             </c:if>
@@ -150,15 +156,18 @@
             <ul class="pagination justify-content-center">
                 <c:if test="${not empty previouslyPage}">
                     <li class="page-item"><a class="page-link"
-                                             href="/user/data?page=${previouslyPage}#payment">Previous</a></li>
+                                             href="/user/data?page=${previouslyPage}#payment">
+                        <spring:message code="button.prev"/></a></li>
                 </c:if>
 
                 <c:if test="${not empty nextPage}">
-                    <li class="page-item"><a class="page-link" href="/user/data?page=${nextPage}#payment">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="/user/data?page=${nextPage}#payment">
+                        <spring:message code="button.next"/></a></li>
                 </c:if>
             </ul>
         </nav>
     </div>
+    </c:if>
 
 </div>
 
