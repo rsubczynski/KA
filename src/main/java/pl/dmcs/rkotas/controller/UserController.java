@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.dmcs.rkotas.authentication.AuthenticationFacade;
 import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.Bill;
+import pl.dmcs.rkotas.domain.Rates;
 import pl.dmcs.rkotas.dto.EditUserForm;
+import pl.dmcs.rkotas.dto.MeterForm;
 import pl.dmcs.rkotas.service.AppUserService;
 import pl.dmcs.rkotas.util.AppDataFormatter;
 
@@ -93,11 +95,28 @@ public class UserController {
     public String meter(Model model) {
         AppUser appUser = appUserService.findByEmail(
                 authenticationFacade.getLoginUser().getUsername());
-
+        model.addAttribute("meterForm", new MeterForm());
         model.addAttribute("rates", appUser.getUserData().getFlat().getRates());
         model.addAttribute("date",
                 AppDataFormatter.getFormattedDate(appUser.getUserData().getFlat().getRates().getLocaleData()));
         return "userMeterReading";
+    }
+
+    @PostMapping(value = {"/meter"})
+    public String meter(@Valid @ModelAttribute("meterForm") MeterForm meterForm, BindingResult result, Model model) {
+        AppUser appUser = appUserService.findByEmail(
+                authenticationFacade.getLoginUser().getUsername());
+        Rates rates = appUser.getUserData().getFlat().getRates();
+        model.addAttribute("rates", rates);
+        model.addAttribute("date",
+                AppDataFormatter.getFormattedDate(appUser.getUserData().getFlat().getRates().getLocaleData()));
+
+        if (result.hasErrors()) {
+            return "userMeterReading";
+
+        }
+        appUserService.addMeterToUser(appUser, meterForm, rates);
+        return "redirect:/user/data";
     }
 
     @GetMapping(value = {"/payment"})

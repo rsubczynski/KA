@@ -1,18 +1,18 @@
 package pl.dmcs.rkotas.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.dmcs.rkotas.dao.AppUserRepository;
 import pl.dmcs.rkotas.dao.AppUserRoleRepository;
-import pl.dmcs.rkotas.domain.AppUser;
-import pl.dmcs.rkotas.domain.AppUserData;
-import pl.dmcs.rkotas.domain.Flat;
+import pl.dmcs.rkotas.domain.*;
+import pl.dmcs.rkotas.domain.charges.*;
 import pl.dmcs.rkotas.dto.AccommodationForm;
 import pl.dmcs.rkotas.dto.EditUserForm;
+import pl.dmcs.rkotas.dto.MeterForm;
 import pl.dmcs.rkotas.dto.RegisterForm;
+
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
@@ -72,7 +72,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser addDataToUser(String username, AccommodationForm accommodationForm) {
+    public void addDataToUser(String username, AccommodationForm accommodationForm) {
         AppUser appUser = appUserRepository.findByEmail(username);
 
         //TODO : works ?
@@ -87,17 +87,65 @@ public class AppUserServiceImpl implements AppUserService {
         userData.setFlat(flatService.findBySecretCode(accommodationForm.getSecretCode()));
         appUser.setUserData(userData);
 
-        return appUserRepository.save(appUser);
+        appUserRepository.save(appUser);
     }
 
     @Override
-    public AppUser editUserData(String username, EditUserForm editUserForm) {
+    public void editUserData(String username, EditUserForm editUserForm) {
         AppUser appUser = appUserRepository.findByEmail(username);
         AppUserData userData = appUser.getUserData();
         userData.setFirstName(editUserForm.getFirstName());
         userData.setLastName(editUserForm.getLastName());
         userData.setPhoneNumber(editUserForm.getTelephone());
-        return appUserRepository.save(appUser);
+        appUserRepository.save(appUser);
+    }
+
+    @Override
+    public void addMeterToUser(AppUser appUser, MeterForm meterForm, Rates repairFundRate) {
+        ColdWater coldWater = ColdWater.builder()
+                .rate(repairFundRate.getColdWaterRate())
+                .count(Double.parseDouble(meterForm.getColdWater()))
+                .price(repairFundRate.getColdWaterRate() * Double.parseDouble(meterForm.getColdWater()))
+                .build();
+
+        HotWater hotWater = HotWater.builder()
+                .rate(repairFundRate.getHotWaterRate())
+                .count(Double.parseDouble(meterForm.getHotWater()))
+                .price(repairFundRate.getHotWaterRate() * Double.parseDouble(meterForm.getHotWater()))
+                .build();
+
+        Electricity electricity = Electricity.builder()
+                .rate(repairFundRate.getElectricityRate())
+                .count(Double.parseDouble(meterForm.getElectricity()))
+                .price(repairFundRate.getElectricityRate() * Double.parseDouble(meterForm.getElectricity()))
+                .build();
+
+        Heating heating = Heating.builder()
+                .rate(repairFundRate.getHeatingRate())
+                .count(Double.parseDouble(meterForm.getHeating()))
+                .price(repairFundRate.getHeatingRate() * Double.parseDouble(meterForm.getHeating()))
+                .build();
+
+        RepairFund repairFund = RepairFund.builder()
+                .rate(repairFundRate.getRepairFundRate())
+                .count(1)
+                .price(repairFundRate.getRepairFundRate())
+                .build();
+
+        Bill bill = new Bill();
+        bill.setColdWater(coldWater);
+        bill.setHotWater(hotWater);
+        bill.setElectricityList(electricity);
+        bill.setHeating(heating);
+        bill.setRepairFund(repairFund);
+
+        bill.setPayment(false);
+        bill.setTotalCount(coldWater.getPrice() + hotWater.getPrice() +
+                electricity.getPrice() + heating.getPrice() + repairFund.getPrice());
+
+        appUser.getUserData().getFlat().getBills().add(bill);
+
+        appUserRepository.save(appUser);
     }
 
 }

@@ -1,13 +1,15 @@
 package pl.dmcs.rkotas.domain.charges;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="repeirfund")
 public class RepairFund {
 
@@ -20,4 +22,6 @@ public class RepairFund {
     private double price;
 
     private double rate;
+
+
 }

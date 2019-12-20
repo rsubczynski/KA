@@ -1,13 +1,15 @@
 package pl.dmcs.rkotas.domain.charges;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="electricity")
 public class Electricity {
 
