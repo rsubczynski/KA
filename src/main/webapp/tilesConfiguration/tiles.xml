@@ -63,6 +63,11 @@
         <put-attribute name="body" value="/views/users/user/userPayment.jsp" />
     </definition>
 
+    <definition name="editUser" extends="base.definition">
+        <put-attribute name="title" value="EditUser" />
+        <put-attribute name="body" value="/views/users/user/editUser.jsp" />
+    </definition>
+
 </tiles-definitions>
 
 

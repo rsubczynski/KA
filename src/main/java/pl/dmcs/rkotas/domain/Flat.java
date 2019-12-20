@@ -36,4 +36,7 @@ public class Flat {
 
     private boolean isReserved;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Rates rates;
+
 }

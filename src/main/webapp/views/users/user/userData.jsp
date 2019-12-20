@@ -33,7 +33,10 @@
                 <td>${user.userData.lastName}</td>
                 <td>${user.userData.phoneNumber}</td>
                 <td>
-                    <button class="btn btn-primary" type="button"><spring:message code="button.editUserData"/></button>
+                    <form action="/user/edit">
+                    <button class="btn btn-primary" type="submit">
+                        <spring:message code="button.editUserData"/></button>
+                    </form>
                 </td>
             </tr>
             </tbody>

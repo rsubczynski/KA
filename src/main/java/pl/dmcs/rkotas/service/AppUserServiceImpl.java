@@ -1,6 +1,7 @@
 package pl.dmcs.rkotas.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.AppUserData;
 import pl.dmcs.rkotas.domain.Flat;
 import pl.dmcs.rkotas.dto.AccommodationForm;
+import pl.dmcs.rkotas.dto.EditUserForm;
 import pl.dmcs.rkotas.dto.RegisterForm;
 
 @Service
@@ -85,6 +87,16 @@ public class AppUserServiceImpl implements AppUserService {
         userData.setFlat(flatService.findBySecretCode(accommodationForm.getSecretCode()));
         appUser.setUserData(userData);
 
+        return appUserRepository.save(appUser);
+    }
+
+    @Override
+    public AppUser editUserData(String username, EditUserForm editUserForm) {
+        AppUser appUser = appUserRepository.findByEmail(username);
+        AppUserData userData = appUser.getUserData();
+        userData.setFirstName(editUserForm.getFirstName());
+        userData.setLastName(editUserForm.getLastName());
+        userData.setPhoneNumber(editUserForm.getTelephone());
         return appUserRepository.save(appUser);
     }
 

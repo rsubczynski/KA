@@ -39,4 +39,5 @@ public class Bill {
     private double totalCount;
 
     private boolean isPayment;
+
 }

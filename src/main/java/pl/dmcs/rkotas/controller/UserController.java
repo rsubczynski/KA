@@ -2,14 +2,16 @@ package pl.dmcs.rkotas.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.dmcs.rkotas.authentication.AuthenticationFacade;
 import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.Bill;
+import pl.dmcs.rkotas.dto.AccommodationForm;
+import pl.dmcs.rkotas.dto.EditUserForm;
 import pl.dmcs.rkotas.service.AppUserService;
 
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -64,8 +66,38 @@ public class UserController {
         return "userData";
     }
 
+
+    @GetMapping(value = {"/edit"})
+    private String editUser(Model model){
+        AppUser appUser = appUserService.findByEmail(
+                authenticationFacade.getLoginUser().getUsername());
+
+        EditUserForm editUserForm = new EditUserForm();
+        editUserForm.setFirstName(appUser.getUserData().getFirstName());
+        editUserForm.setLastName(appUser.getUserData().getLastName());
+        editUserForm.setTelephone(appUser.getUserData().getPhoneNumber());
+        model.addAttribute("editUserForm", editUserForm );
+
+        return "editUser";
+    }
+
+    @PostMapping( value = { "/edit"})
+    public String addDataToUser(@Valid @ModelAttribute("editUserForm") EditUserForm editUserForm, BindingResult result){
+        if (result.hasErrors()) {
+            return "editUser";
+        }
+        appUserService.editUserData(authenticationFacade.getLoginUser().getUsername(), editUserForm);
+
+        return "redirect:/user/data";
+    }
+
+
     @GetMapping(value = {"/meter"})
     public String meter() {
+        AppUser appUser = appUserService.findByEmail(
+                authenticationFacade.getLoginUser().getUsername());
+
+
         return "userMeterReading";
     }
 
