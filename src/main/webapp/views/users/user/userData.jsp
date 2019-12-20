@@ -99,35 +99,35 @@
             <tr>
                 <th scope="row">1</th>
                 <td><spring:message code="label.charges.coldWater"/></td>
-                <td>${bill.coldWater.rate}</td>
+                <td>${bill.coldWater.rate} [m<sup>3</sup>]</td>
                 <td>${bill.coldWater.count}</td>
                 <td>${bill.coldWater.price}</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
                 <td><spring:message code="label.charges.hotWater"/></td>
-                <td>${bill.hotWater.rate}</td>
+                <td>${bill.hotWater.rate} [m<sup>3</sup>]</td>
                 <td>${bill.hotWater.count}</td>
                 <td>${bill.hotWater.price}</td>
             </tr>
             <tr>
                 <th scope="row">3</th>
                 <td><spring:message code="label.charges.electric"/></td>
-                <td>${bill.electricityList.rate}</td>
+                <td>${bill.electricityList.rate} [kW/h]</td>
                 <td>${bill.electricityList.count}</td>
                 <td>${bill.electricityList.price}</td>
             </tr>
             <tr>
                 <th scope="row">4</th>
                 <td><spring:message code="label.charges.heating"/></td>
-                <td>${bill.heating.rate}</td>
+                <td>${bill.heating.rate} [kW/h]</td>
                 <td>${bill.heating.count}</td>
                 <td>${bill.heating.price}</td>
             </tr>
             <tr>
                 <th scope="row">5</th>
                 <td><spring:message code="label.charges.repairFund"/></td>
-                <td>${bill.repairFund.rate}</td>
+                <td>${bill.repairFund.rate} zł</td>
                 <td>${bill.repairFund.count}</td>
                 <td>${bill.repairFund.price}</td>
             </tr>
@@ -147,9 +147,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>
-                        <button class="btn btn-primary" type="button"><spring:message code="button.pay"/></button>
-                    </td>
+
                 </tr>
             </c:if>
             </tbody>

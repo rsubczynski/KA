@@ -3,11 +3,9 @@ package pl.dmcs.rkotas.domain;
 import lombok.Getter;
 import lombok.Setter;
 import pl.dmcs.rkotas.domain.charges.*;
-import sun.util.resources.LocaleData;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter

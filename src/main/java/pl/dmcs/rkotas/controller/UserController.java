@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import pl.dmcs.rkotas.authentication.AuthenticationFacade;
 import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.Bill;
-import pl.dmcs.rkotas.dto.AccommodationForm;
 import pl.dmcs.rkotas.dto.EditUserForm;
 import pl.dmcs.rkotas.service.AppUserService;
+import pl.dmcs.rkotas.util.AppDataFormatter;
 
 import javax.validation.Valid;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +46,12 @@ public class UserController {
             return "userData";
         }
 
-        if (parsePAge < 0 || parsePAge +1 > billList.size()) {
+        if (parsePAge < 0 || parsePAge + 1 > billList.size()) {
             model.addAttribute("pageError", true);
             return "userData";
         }
 
-        model.addAttribute("data", DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-                .format(billList.get(parsePAge).getLocaleData()));
+        model.addAttribute("data", AppDataFormatter.getFormattedDate(billList.get(parsePAge).getLocaleData()));
         model.addAttribute("bill", billList.get(parsePAge));
 
         if (parsePAge + 1 < billList.size())
@@ -68,7 +65,7 @@ public class UserController {
 
 
     @GetMapping(value = {"/edit"})
-    private String editUser(Model model){
+    private String editUser(Model model) {
         AppUser appUser = appUserService.findByEmail(
                 authenticationFacade.getLoginUser().getUsername());
 
@@ -76,13 +73,13 @@ public class UserController {
         editUserForm.setFirstName(appUser.getUserData().getFirstName());
         editUserForm.setLastName(appUser.getUserData().getLastName());
         editUserForm.setTelephone(appUser.getUserData().getPhoneNumber());
-        model.addAttribute("editUserForm", editUserForm );
+        model.addAttribute("editUserForm", editUserForm);
 
         return "editUser";
     }
 
-    @PostMapping( value = { "/edit"})
-    public String addDataToUser(@Valid @ModelAttribute("editUserForm") EditUserForm editUserForm, BindingResult result){
+    @PostMapping(value = {"/edit"})
+    public String addDataToUser(@Valid @ModelAttribute("editUserForm") EditUserForm editUserForm, BindingResult result) {
         if (result.hasErrors()) {
             return "editUser";
         }
@@ -93,11 +90,13 @@ public class UserController {
 
 
     @GetMapping(value = {"/meter"})
-    public String meter() {
+    public String meter(Model model) {
         AppUser appUser = appUserService.findByEmail(
                 authenticationFacade.getLoginUser().getUsername());
 
-
+        model.addAttribute("rates", appUser.getUserData().getFlat().getRates());
+        model.addAttribute("date",
+                AppDataFormatter.getFormattedDate(appUser.getUserData().getFlat().getRates().getLocaleData()));
         return "userMeterReading";
     }
 
