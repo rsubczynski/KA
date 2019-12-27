@@ -2,7 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
-<link href="<c:url value="/resources/css/appCss.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
     <div class="navbar-collapse">
@@ -18,7 +18,6 @@
                     <div class="dropdown-menu" aria-labelledby="user">
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/user/data"><spring:message code="label.userData"/></a>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/user/meter"><spring:message code="label.meterReading"/></a>
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/user/payment"><spring:message code="label.payment"/></a>
                     </div>
                 </li>
             </sec:authorize>
@@ -27,9 +26,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="superUser" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false"><spring:message code="label.superUser"/></a>
                     <div class="dropdown-menu" aria-labelledby="superUser">
-                        <a class="dropdown-item" href="#">TO DO option1</a>
-                        <a class="dropdown-item" href="#">TO DO option1</a>
-                        <a class="dropdown-item" href="#">TO DO option1</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/superUser/serviceFees"><spring:message code="serviceFees.title"/></a>
                     </div>
                 </li>
             </sec:authorize>

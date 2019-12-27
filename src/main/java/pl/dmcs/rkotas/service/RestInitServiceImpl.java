@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dmcs.rkotas.domain.*;
 import pl.dmcs.rkotas.domain.charges.*;
+import pl.dmcs.rkotas.util.PaymentStatus;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -28,6 +29,7 @@ public class RestInitServiceImpl implements RestInitService {
                 .postalCode("98-290")
                 .street("Górna")
                 .country("Polska")
+                .blockNumber("10")
                 .build();
 
         return getBlock(block, address,generateBaseRates());
@@ -40,7 +42,8 @@ public class RestInitServiceImpl implements RestInitService {
         BlockAddress address = BlockAddress.builder()
                 .city("Lodz")
                 .postalCode("93-590")
-                .street("Al. Politechniki 9a")
+                .street("Al. Politechniki")
+                .blockNumber("9a")
                 .country("Polska")
                 .build();
 
@@ -67,6 +70,7 @@ public class RestInitServiceImpl implements RestInitService {
         bill.setHotWater(new HotWater());
         bill.setRepairFund(new RepairFund());
         bill.setPayment(true);
+        bill.setPaymentStatus(PaymentStatus.ACCEPTED);
         return bill;
     }
 
@@ -92,7 +96,7 @@ public class RestInitServiceImpl implements RestInitService {
         flatList.add(generateFlat(9, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
         flatList.add(generateFlat(10, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
 
-        block.setAdministrator(appUserService.findByEmail("admin@gmail.com"));
+        block.setAdministrator(appUserService.findByEmail("super@gmail.com"));
         block.setFlats(flatList);
         return blockService.save(block);
     }

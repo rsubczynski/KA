@@ -58,14 +58,18 @@
         <put-attribute name="body" value="/views/users/user/userMeterReading.jsp" />
     </definition>
 
-    <definition name="userPayment" extends="base.definition">
-        <put-attribute name="title" value="User Payment" />
-        <put-attribute name="body" value="/views/users/user/userPayment.jsp" />
-    </definition>
-
     <definition name="editUser" extends="base.definition">
         <put-attribute name="title" value="EditUser" />
         <put-attribute name="body" value="/views/users/user/editUser.jsp" />
+    </definition>
+
+    <definition name="serviceFees" extends="base.definition">
+        <put-attribute name="title" value="Service fees" />
+        <put-attribute name="body" value="/views/users/superUser/serviceFees.jsp" />
+    </definition>
+    <definition name="payment" extends="base.definition">
+        <put-attribute name="title" value="Payment" />
+        <put-attribute name="body" value="/views/users/superUser/payment.jsp" />
     </definition>
 
 </tiles-definitions>

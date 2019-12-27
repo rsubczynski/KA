@@ -5,8 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Getter
 @Setter
@@ -18,12 +20,12 @@ public class Block implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne
+    @ManyToOne
     private AppUser administrator;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private BlockAddress blockAddress;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Flat> flats = new HashSet<Flat>(0);
+    private Set<Flat> flats = new TreeSet<>(Comparator.comparingLong(Flat::getLocaleNumber));
 }

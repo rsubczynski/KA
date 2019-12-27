@@ -34,8 +34,8 @@
                 <td>${user.userData.phoneNumber}</td>
                 <td>
                     <form action="/user/edit">
-                    <button class="btn btn-primary" type="submit">
-                        <spring:message code="button.editUserData"/></button>
+                        <button class="btn btn-primary" type="submit">
+                            <spring:message code="button.editUserData"/></button>
                     </form>
                 </td>
             </tr>
@@ -54,6 +54,7 @@
                 <th scope="col"><spring:message code="label.flatArea"/></th>
                 <th scope="col"><spring:message code="label.localNumber"/></th>
                 <th scope="col"><spring:message code="label.street"/></th>
+                <th scope="col"><spring:message code="label.buildNumber"/></th>
                 <th scope="col"><spring:message code="label.postalCode"/></th>
                 <th scope="col"><spring:message code="label.city"/></th>
                 <th scope="col"><spring:message code="label.country"/></th>
@@ -64,6 +65,7 @@
                 <td>${user.userData.flat.flatArea} m2</td>
                 <td>${user.userData.flat.localeNumber}</td>
                 <td>${user.userData.flat.blockAddress.street}</td>
+                <td>${user.userData.flat.blockAddress.blockNumber}</td>
                 <td>${user.userData.flat.blockAddress.postalCode}</td>
                 <td>${user.userData.flat.blockAddress.city}</td>
                 <td>${user.userData.flat.blockAddress.country}</td>
@@ -74,12 +76,12 @@
 
     <div class="app-window-container">
 
-    <c:if test="${not empty pageError}">
-        <div class="error"><spring:message code="label.page.error"/></div>
+        <c:if test="${not empty pageError}">
+            <div class="error"><spring:message code="label.page.error"/></div>
 
-    </c:if>
+        </c:if>
 
-    <c:if test="${empty pageError}">
+        <c:if test="${empty pageError}">
 
         <h1><spring:message code="label.charges"/></h1>
         <h6><spring:message code="label.charges.data"/> : ${data}</h6>
@@ -147,11 +149,30 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/user/pay?bill=${bill.id}">
+                            <button class="btn btn-primary">
+                                <spring:message code="button.pay"/></button>
+                        </a>
 
+                    </td>
                 </tr>
             </c:if>
             </tbody>
         </table>
+
+        <c:if test="${bill.paymentStatus.name() == 'ACCEPTED'}">
+            <div class=" alert alert-success"><spring:message code="paymentStatus.accepted"/></div>
+        </c:if>
+        <c:if test="${bill.paymentStatus.name() == 'WAITING'}">
+            <div class="alert alert-warning"><spring:message code="paymentStatus.waiting"/></div>
+        </c:if>
+        <c:if test="${bill.paymentStatus.name() == 'REJECTED'}">
+            <div class="alert alert-danger"><spring:message code="paymentStatus.rejected"/></div>
+        </c:if>
+        <c:if test="${bill.paymentStatus.name() == 'NEW'}">
+            <div class="alert alert-info"><spring:message code="paymentStatus.new"/></div>
+        </c:if>
 
         <nav id="payment" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
@@ -171,9 +192,6 @@
     </c:if>
 
 </div>
-
-</div>
-
 
 </body>
 </html>

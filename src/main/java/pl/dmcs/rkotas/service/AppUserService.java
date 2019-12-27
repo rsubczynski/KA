@@ -2,7 +2,6 @@ package pl.dmcs.rkotas.service;
 
 import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.Flat;
-import pl.dmcs.rkotas.domain.Rates;
 import pl.dmcs.rkotas.dto.AccommodationForm;
 import pl.dmcs.rkotas.dto.EditUserForm;
 import pl.dmcs.rkotas.dto.MeterForm;
@@ -22,6 +21,11 @@ public interface AppUserService {
 
 	void editUserData(String username, EditUserForm accommodationForm);
 
-    void addMeterToUser(AppUser appUser, MeterForm meterForm, Rates repairFundRate);
+    void addMeterToUser(AppUser appUser, MeterForm meterForm);
+
+	void createTempSuperUserAccount(String login, String password);
+
+	void createTempAdminAccount(String login, String password);
+
 }
 

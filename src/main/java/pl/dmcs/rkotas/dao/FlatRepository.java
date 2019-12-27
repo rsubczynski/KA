@@ -12,4 +12,6 @@ public interface FlatRepository extends JpaRepository<Flat, Long> {
 
     Flat findBySecretCode(String secretCode);
 
+    Flat findById(long id);
+
 }

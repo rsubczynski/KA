@@ -21,6 +21,8 @@ public class BlockAddress {
 
     private String country;
 
+    private String blockNumber;
+
     private String city;
 
     private String postalCode;

@@ -8,4 +8,6 @@ public interface BlockService {
     Block save(Block block);
 
     List<Block> getAllBlock();
+
+    List<Block> findAllByAdministratorId(long id);
 }

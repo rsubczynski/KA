@@ -40,4 +40,9 @@ public class FlatServiceImpl implements FlatService {
     public Flat findBySecretCode(String secretCode) {
         return flatRepository.findBySecretCode(secretCode);
     }
+
+    @Override
+    public Flat findById(long id) {
+        return flatRepository.findById(id);
+    }
 }

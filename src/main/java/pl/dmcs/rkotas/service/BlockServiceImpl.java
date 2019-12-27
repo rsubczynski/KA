@@ -29,4 +29,9 @@ public class BlockServiceImpl implements BlockService {
     public List<Block> getAllBlock() {
         return blockRepository.findAll();
     }
+
+    @Override
+    public List<Block> findAllByAdministratorId(long id) {
+        return blockRepository.findByAdministrator_Id(id);
+    }
 }

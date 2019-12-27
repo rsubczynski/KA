@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -25,12 +24,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-
-//        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN","USER","SUPER_USER","GUEST");
-//        auth.inMemoryAuthentication().withUser("kapj").password("{noop}kapj").roles("USER");
-//        auth.inMemoryAuthentication().withUser("student").password("{noop}student").roles("STUDENT");
-        //User.withDefaultPasswordEncoder().username("user").password("user").roles("USER").build();
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
@@ -47,6 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
               .antMatchers("/dashboard").authenticated()
               .antMatchers("/accommodation").authenticated()
               .antMatchers("/user/**").hasRole("USER")
+              .antMatchers("/admin/**").hasRole("ADMIN")
+              .antMatchers("/superUser/**").hasRole("SUPER_USER")
         .and().formLogin().loginPage("/login").permitAll() // with custom login page
         .usernameParameter("login").passwordParameter("password")
               .defaultSuccessUrl("/dashboard")

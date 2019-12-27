@@ -12,8 +12,12 @@ import pl.dmcs.rkotas.dto.AccommodationForm;
 import pl.dmcs.rkotas.dto.EditUserForm;
 import pl.dmcs.rkotas.dto.MeterForm;
 import pl.dmcs.rkotas.dto.RegisterForm;
+import pl.dmcs.rkotas.util.PaymentStatus;
 
+import java.time.LocalDateTime;
+import java.util.List;
 
+@Transactional
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
@@ -34,12 +38,11 @@ public class AppUserServiceImpl implements AppUserService {
         return passwordEncoder.encode(password);
     }
 
-    @Transactional
     public AppUser findByEmail(String login) {
         return appUserRepository.findByEmail(login);
     }
 
-    @Transactional
+
     @Override
     public AppUser addUseAfterRegister(RegisterForm registerForm, Flat flat) {
         AppUser appUser = new AppUser();
@@ -101,43 +104,46 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public void addMeterToUser(AppUser appUser, MeterForm meterForm, Rates repairFundRate) {
+    public void addMeterToUser(AppUser appUser, MeterForm meterForm) {
+        Rates rates = appUser.getUserData().getFlat().getRates();
         ColdWater coldWater = ColdWater.builder()
-                .rate(repairFundRate.getColdWaterRate())
+                .rate(rates.getColdWaterRate())
                 .count(Double.parseDouble(meterForm.getColdWater()))
-                .price(repairFundRate.getColdWaterRate() * Double.parseDouble(meterForm.getColdWater()))
+                .price(rates.getColdWaterRate() * Double.parseDouble(meterForm.getColdWater()))
                 .build();
 
         HotWater hotWater = HotWater.builder()
-                .rate(repairFundRate.getHotWaterRate())
+                .rate(rates.getHotWaterRate())
                 .count(Double.parseDouble(meterForm.getHotWater()))
-                .price(repairFundRate.getHotWaterRate() * Double.parseDouble(meterForm.getHotWater()))
+                .price(rates.getHotWaterRate() * Double.parseDouble(meterForm.getHotWater()))
                 .build();
 
         Electricity electricity = Electricity.builder()
-                .rate(repairFundRate.getElectricityRate())
+                .rate(rates.getElectricityRate())
                 .count(Double.parseDouble(meterForm.getElectricity()))
-                .price(repairFundRate.getElectricityRate() * Double.parseDouble(meterForm.getElectricity()))
+                .price(rates.getElectricityRate() * Double.parseDouble(meterForm.getElectricity()))
                 .build();
 
         Heating heating = Heating.builder()
-                .rate(repairFundRate.getHeatingRate())
+                .rate(rates.getHeatingRate())
                 .count(Double.parseDouble(meterForm.getHeating()))
-                .price(repairFundRate.getHeatingRate() * Double.parseDouble(meterForm.getHeating()))
+                .price(rates.getHeatingRate() * Double.parseDouble(meterForm.getHeating()))
                 .build();
 
         RepairFund repairFund = RepairFund.builder()
-                .rate(repairFundRate.getRepairFundRate())
+                .rate(rates.getRepairFundRate())
                 .count(1)
-                .price(repairFundRate.getRepairFundRate())
+                .price(rates.getRepairFundRate())
                 .build();
 
         Bill bill = new Bill();
+        bill.setLocaleData(LocalDateTime.now());
         bill.setColdWater(coldWater);
         bill.setHotWater(hotWater);
         bill.setElectricityList(electricity);
         bill.setHeating(heating);
         bill.setRepairFund(repairFund);
+        bill.setPaymentStatus(PaymentStatus.NEW);
 
         bill.setPayment(false);
         bill.setTotalCount(coldWater.getPrice() + hotWater.getPrice() +
@@ -146,6 +152,26 @@ public class AppUserServiceImpl implements AppUserService {
         appUser.getUserData().getFlat().getBills().add(bill);
 
         appUserRepository.save(appUser);
+    }
+
+    @Override
+    public void createTempSuperUserAccount(String login, String password) {
+        AppUser superUser = new AppUser();
+        superUser.setEmail(login);
+        superUser.setPassword(hashPassword(password));
+        superUser.setEnable(true);
+        superUser.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_SUPER_USER"));
+        appUserRepository.save(superUser);
+    }
+
+    @Override
+    public void createTempAdminAccount(String login, String password) {
+        AppUser admin = new AppUser();
+        admin.setEmail(login);
+        admin.setPassword(hashPassword(password));
+        admin.setEnable(true);
+        admin.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_ADMIN"));
+        appUserRepository.save(admin);
     }
 
 }

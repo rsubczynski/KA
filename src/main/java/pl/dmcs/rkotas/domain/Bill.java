@@ -3,6 +3,7 @@ package pl.dmcs.rkotas.domain;
 import lombok.Getter;
 import lombok.Setter;
 import pl.dmcs.rkotas.domain.charges.*;
+import pl.dmcs.rkotas.util.PaymentStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,5 +38,8 @@ public class Bill {
     private double totalCount;
 
     private boolean isPayment;
+
+    @Enumerated(EnumType.STRING)
+    PaymentStatus paymentStatus;
 
 }

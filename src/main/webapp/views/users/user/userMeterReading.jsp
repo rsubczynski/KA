@@ -69,7 +69,7 @@
         <br>
         <br>
         <div class="alert alert-info">
-            Tabla opłat z dnia <i>${date}</i>
+            <spring:message code="label.table"/> <i>${date}</i>
         </div>
 
     </div>

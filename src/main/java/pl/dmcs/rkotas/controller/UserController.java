@@ -1,5 +1,6 @@
 package pl.dmcs.rkotas.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,27 +8,31 @@ import org.springframework.web.bind.annotation.*;
 import pl.dmcs.rkotas.authentication.AuthenticationFacade;
 import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.domain.Bill;
-import pl.dmcs.rkotas.domain.Rates;
 import pl.dmcs.rkotas.dto.EditUserForm;
 import pl.dmcs.rkotas.dto.MeterForm;
 import pl.dmcs.rkotas.service.AppUserService;
+import pl.dmcs.rkotas.service.BillService;
 import pl.dmcs.rkotas.util.AppDataFormatter;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 
+@Slf4j
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
 
     private final AuthenticationFacade authenticationFacade;
     private final AppUserService appUserService;
+    private final BillService billService;
+    private final AppDataFormatter appDataFormatter;
 
-    public UserController(AuthenticationFacade authenticationFacade, AppUserService appUserService) {
+    public UserController(AuthenticationFacade authenticationFacade, AppUserService appUserService, BillService billService, AppDataFormatter appDataFormatter) {
         this.authenticationFacade = authenticationFacade;
         this.appUserService = appUserService;
+        this.billService = billService;
+        this.appDataFormatter = appDataFormatter;
     }
 
     @GetMapping(value = {"/data"})
@@ -35,11 +40,12 @@ public class UserController {
 
         AppUser appUser = appUserService.findByEmail(
                 authenticationFacade.getLoginUser().getUsername());
-        List<Bill> billList = new ArrayList<>(appUser.getUserData().getFlat().getBills());
+
+        List<Bill> billList = billService.getListBillForFlat(appUser.getUserData().getFlat().getId());
         model.addAttribute("user", appUser);
         model.addAttribute("bill", new Bill());
 
-        int parsePAge = 0;
+        int parsePAge;
 
         try {
             parsePAge = Integer.parseInt(page);
@@ -53,7 +59,7 @@ public class UserController {
             return "userData";
         }
 
-        model.addAttribute("data", AppDataFormatter.getFormattedDate(billList.get(parsePAge).getLocaleData()));
+        model.addAttribute("data", appDataFormatter.getFormattedDate(billList.get(parsePAge).getLocaleData()));
         model.addAttribute("bill", billList.get(parsePAge));
 
         if (parsePAge + 1 < billList.size())
@@ -98,7 +104,7 @@ public class UserController {
         model.addAttribute("meterForm", new MeterForm());
         model.addAttribute("rates", appUser.getUserData().getFlat().getRates());
         model.addAttribute("date",
-                AppDataFormatter.getFormattedDate(appUser.getUserData().getFlat().getRates().getLocaleData()));
+                appDataFormatter.getFormattedDate(appUser.getUserData().getFlat().getRates().getLocaleData()));
         return "userMeterReading";
     }
 
@@ -106,21 +112,28 @@ public class UserController {
     public String meter(@Valid @ModelAttribute("meterForm") MeterForm meterForm, BindingResult result, Model model) {
         AppUser appUser = appUserService.findByEmail(
                 authenticationFacade.getLoginUser().getUsername());
-        Rates rates = appUser.getUserData().getFlat().getRates();
-        model.addAttribute("rates", rates);
+        model.addAttribute("rates", appUser.getUserData().getFlat().getRates());
         model.addAttribute("date",
-                AppDataFormatter.getFormattedDate(appUser.getUserData().getFlat().getRates().getLocaleData()));
+                appDataFormatter.getFormattedDate(appUser.getUserData().getFlat().getRates().getLocaleData()));
 
         if (result.hasErrors()) {
             return "userMeterReading";
 
         }
-        appUserService.addMeterToUser(appUser, meterForm, rates);
+        appUserService.addMeterToUser(appUser, meterForm);
         return "redirect:/user/data";
     }
 
-    @GetMapping(value = {"/payment"})
-    public String payment() {
-        return "userPayment";
+    @GetMapping(value = {"/pay"})
+    public String payMeter(@RequestParam(value = "bill") String billId) {
+
+        try {
+            billService.payBill(Long.parseLong(billId));
+        } catch (NumberFormatException e) {
+            log.debug("Bad");
+        }
+
+        return "redirect:/user/data";
     }
+
 }

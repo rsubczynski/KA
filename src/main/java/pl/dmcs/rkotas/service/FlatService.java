@@ -11,4 +11,6 @@ public interface FlatService {
     Flat reservedFlat(Flat flat);
 
     Flat findBySecretCode(String uid);
+
+    Flat findById(long id);
 }
