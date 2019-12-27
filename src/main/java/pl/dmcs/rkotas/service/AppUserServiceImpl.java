@@ -15,7 +15,9 @@ import pl.dmcs.rkotas.dto.RegisterForm;
 import pl.dmcs.rkotas.util.PaymentStatus;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -172,6 +174,26 @@ public class AppUserServiceImpl implements AppUserService {
         admin.setEnable(true);
         admin.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_ADMIN"));
         appUserRepository.save(admin);
+    }
+
+    public List<AppUser> findAllUserWithGuestRole() {
+        return Optional.ofNullable(appUserRepository.findByAppUserRole(appUserRoleRepository.findByRole("ROLE_GUEST"))
+        ).orElse(Collections.emptyList());
+    }
+
+    public List<AppUser> findAllUserWithUserRole() {
+        return Optional.ofNullable(appUserRepository.findByAppUserRole(appUserRoleRepository.findByRole("ROLE_USER"))
+        ).orElse(Collections.emptyList());
+    }
+
+    public List<AppUser> findAllUserWithSuperUserRole() {
+        return Optional.ofNullable(appUserRepository.findByAppUserRole(appUserRoleRepository.findByRole("ROLE_SUPER_USER"))
+        ).orElse(Collections.emptyList());
+    }
+
+    public List<AppUser> findAllUserWithAdminRole() {
+        return Optional.ofNullable(appUserRepository.findByAppUserRole(appUserRoleRepository.findByRole("ROLE_ADMIN"))
+        ).orElse(Collections.emptyList());
     }
 
 }

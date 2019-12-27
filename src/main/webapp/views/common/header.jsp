@@ -35,9 +35,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="admin" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false"><spring:message code="label.admin"/></a>
                     <div class="dropdown-menu" aria-labelledby="admin">
-                        <a class="dropdown-item" href="#">TO DO option1</a>
-                        <a class="dropdown-item" href="#">TO DO option1</a>
-                        <a class="dropdown-item" href="#">TO DO option1</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/users"><spring:message code="label.users"/></a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/buildings"><spring:message code="label.buildings"/></a>
                     </div>
                 </li>
             </sec:authorize>

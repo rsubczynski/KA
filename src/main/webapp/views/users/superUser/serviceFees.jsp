@@ -68,7 +68,7 @@
                     <th scope="col"><spring:message code="label.flatData"/></th>
                     <th scope="col"><spring:message code="label.flatArea"/></th>
                     <th scope="col"><spring:message code="label.secretCode"/></th>
-                    <th scope="col">Uzytkownik</th>
+                    <th scope="col"><spring:message code="label.user"/></th>
                     <th scope="col"><spring:message code="label.charges"/></th>
 
                 </tr>
@@ -129,22 +129,6 @@
             </table>
 
             </body>
-        </div>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                </div>
-            </div>
         </div>
 
     </c:if>

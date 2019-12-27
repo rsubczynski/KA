@@ -67,9 +67,20 @@
         <put-attribute name="title" value="Service fees" />
         <put-attribute name="body" value="/views/users/superUser/serviceFees.jsp" />
     </definition>
+
     <definition name="payment" extends="base.definition">
         <put-attribute name="title" value="Payment" />
         <put-attribute name="body" value="/views/users/superUser/payment.jsp" />
+    </definition>
+
+    <definition name="users" extends="base.definition">
+        <put-attribute name="title" value="User" />
+        <put-attribute name="body" value="/views/users/admin/users.jsp" />
+    </definition>
+
+    <definition name="buildings" extends="base.definition">
+        <put-attribute name="title" value="Buildings" />
+        <put-attribute name="body" value="/views/users/admin/buildings.jsp" />
     </definition>
 
 </tiles-definitions>
