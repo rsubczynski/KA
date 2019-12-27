@@ -30,7 +30,6 @@
                                     <th scope="col">Uid</th>
                                     <th scope="col"><spring:message code="label.secretCode"/></th>
                                     <th scope="col"><spring:message code="label.userEdit.title"/></th>
-                                    <th scope="col"><spring:message code="label.delete"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,10 +40,8 @@
                                         <td>${user.uidUser}</td>
                                         <td>${user.secretFlatCode}</td>
                                         <td>
-                                            <button class="btn btn-primary">Edit</button>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger">Usuń</button>
+                                            <button class="btn btn-primary"><spring:message
+                                                    code="button.editUserData"/></button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -77,7 +74,6 @@
                                     <th scope="col"><spring:message code="label.lastName"/></th>
                                     <th scope="col"><spring:message code="label.telephone"/></th>
                                     <th scope="col"><spring:message code="label.userEdit.title"/></th>
-                                    <th scope="col"><spring:message code="label.delete"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -91,10 +87,8 @@
                                         <td>${user.userData.lastName}</td>
                                         <td>${user.userData.phoneNumber}</td>
                                         <td>
-                                            <button class="btn btn-primary">Edit</button>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger">Usuń</button>
+                                            <button class="btn btn-primary"><spring:message
+                                                    code="button.editUserData"/></button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -126,7 +120,6 @@
                                     <th scope="col"><spring:message code="label.telephone"/></th>
                                     <th scope="col"><spring:message code="label.block"/></th>
                                     <th scope="col"><spring:message code="label.userEdit.title"/></th>
-                                    <th scope="col"><spring:message code="label.delete"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -176,10 +169,8 @@
 
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary">Edit</button>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger">Usuń</button>
+                                            <button class="btn btn-primary"><spring:message
+                                                    code="button.editUserData"/></button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -221,7 +212,8 @@
                                             <td>${user.userData.lastName}</td>
                                             <td>${user.userData.phoneNumber}</td>
                                             <td>
-                                                <button class="btn btn-primary">Edit</button>
+                                                <button class="btn btn-primary"><spring:message
+                                                        code="button.editUserData"/></button>
                                             </td>
                                         </tr>
                                     </c:forEach>

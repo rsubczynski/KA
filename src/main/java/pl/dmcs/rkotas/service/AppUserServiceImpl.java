@@ -196,6 +196,13 @@ public class AppUserServiceImpl implements AppUserService {
         ).orElse(Collections.emptyList());
     }
 
+    @Override
+    public void deleteUser(long userId) {
+        if (appUserRepository.exists(userId)) {
+            appUserRepository.delete(userId);
+        }
+    }
+
 }
 
 

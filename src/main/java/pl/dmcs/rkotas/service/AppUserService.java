@@ -31,7 +31,6 @@ public interface AppUserService {
 
     void createTempAdminAccount(String login, String password);
 
-
     List<AppUser> findAllUserWithGuestRole();
 
     List<AppUser> findAllUserWithUserRole();
@@ -39,6 +38,8 @@ public interface AppUserService {
     List<AppUser> findAllUserWithSuperUserRole();
 
     List<AppUser> findAllUserWithAdminRole();
+
+    void deleteUser(long userId);
 
 }
 

@@ -3,6 +3,8 @@ package pl.dmcs.rkotas.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.dmcs.rkotas.service.AppUserService;
 import pl.dmcs.rkotas.service.BlockService;
@@ -21,7 +23,7 @@ public class AdminController {
         this.blockService = blockService;
     }
 
-    @RequestMapping( "/users")
+    @RequestMapping("/users")
     public String showAppUsers(Model model) {
         model.addAttribute("guestList", appUserService.findAllUserWithGuestRole());
         model.addAttribute("userList", appUserService.findAllUserWithUserRole());
@@ -31,7 +33,13 @@ public class AdminController {
         return "users";
     }
 
-    @RequestMapping( "/buildings")
+    @GetMapping("/users/{id}")
+    public String editUser(@PathVariable(value = "id") String id) {
+
+        return "redirect:/admin/users";
+    }
+
+    @RequestMapping("/buildings")
     public String building(Model model) {
         return "buildings";
     }
