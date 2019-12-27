@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class AppUserData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     private String firstName;
@@ -21,6 +21,6 @@ public class AppUserData {
 
     private String phoneNumber;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Flat flat;
 }

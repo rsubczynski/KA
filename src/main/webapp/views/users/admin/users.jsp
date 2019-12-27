@@ -30,6 +30,7 @@
                                     <th scope="col">Uid</th>
                                     <th scope="col"><spring:message code="label.secretCode"/></th>
                                     <th scope="col"><spring:message code="label.userEdit.title"/></th>
+                                    <th scope="col"><spring:message code="label.delete"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +43,12 @@
                                         <td>
                                             <button class="btn btn-primary"><spring:message
                                                     code="button.editUserData"/></button>
+                                        </td>
+                                        <td>
+                                            <a data-method="DELETE" href="${pageContext.request.contextPath}/admin/users/${user.id}">
+                                                <button class="btn btn-danger">
+                                                    <spring:message code="label.delete"/></button>
+                                            </a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -74,6 +81,7 @@
                                     <th scope="col"><spring:message code="label.lastName"/></th>
                                     <th scope="col"><spring:message code="label.telephone"/></th>
                                     <th scope="col"><spring:message code="label.userEdit.title"/></th>
+                                    <th scope="col"><spring:message code="label.delete"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -89,6 +97,12 @@
                                         <td>
                                             <button class="btn btn-primary"><spring:message
                                                     code="button.editUserData"/></button>
+                                        </td>
+                                        <td>
+                                            <a data-method="DELETE" href="${pageContext.request.contextPath}/admin/users/${user.id}">
+                                                <button class="btn btn-danger">
+                                                    <spring:message code="label.delete"/></button>
+                                            </a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -120,6 +134,7 @@
                                     <th scope="col"><spring:message code="label.telephone"/></th>
                                     <th scope="col"><spring:message code="label.block"/></th>
                                     <th scope="col"><spring:message code="label.userEdit.title"/></th>
+                                    <th scope="col"><spring:message code="label.delete"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -171,6 +186,12 @@
                                         <td>
                                             <button class="btn btn-primary"><spring:message
                                                     code="button.editUserData"/></button>
+                                        </td>
+                                        <td>
+                                        <a data-method="DELETE" href="${pageContext.request.contextPath}/admin/users/${user.id}">
+                                            <button class="btn btn-danger">
+                                                <spring:message code="label.delete"/></button>
+                                        </a>
                                         </td>
                                     </tr>
                                 </c:forEach>

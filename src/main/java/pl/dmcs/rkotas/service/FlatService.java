@@ -8,7 +8,7 @@ public interface FlatService {
 
     List<Flat> findFreeFlats();
 
-    Flat reservedFlat(Flat flat);
+    Flat reservedFlat(Flat flat, boolean reserved);
 
     Flat findBySecretCode(String uid);
 

@@ -58,8 +58,8 @@ public class RegisterController {
             return "register";
         }
 
-        Flat flat =  flatService.findFreeFlats().get(0);
-        AppUser createdUser = userService.addUseAfterRegister(registerForm ,flatService.reservedFlat(flat));
+        Flat flat = flatService.findFreeFlats().get(0);
+        AppUser createdUser = userService.addUseAfterRegister(registerForm, flatService.reservedFlat(flat, true));
         emailService.sendMessageToUser(createdUser, request);
 
         return "login";

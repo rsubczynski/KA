@@ -41,8 +41,9 @@ public class AccommodationController {
             return "accommodation";
         }
         appUserService.addDataToUser(authenticationFacade.getLoginUser().getUsername(), accommodationForm);
+        SecurityContextHolder.clearContext();
 
-        return "redirect:/dashboard";
+        return "redirect:/login";
 
     }
 }

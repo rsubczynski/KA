@@ -32,7 +32,7 @@ public class RestInitServiceImpl implements RestInitService {
                 .blockNumber("10")
                 .build();
 
-        return getBlock(block, address,generateBaseRates());
+        return getBlock(block, address, generateBaseRates());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RestInitServiceImpl implements RestInitService {
                 .country("Polska")
                 .build();
 
-        return getBlock(block, address ,generateBaseRates());
+        return getBlock(block, address, generateBaseRates());
     }
 
     private Rates generateBaseRates() {
@@ -84,17 +84,17 @@ public class RestInitServiceImpl implements RestInitService {
         block.setBlockAddress(address);
 
         Set<Flat> flatList = new HashSet<>();
-        flatList.add(generateFlat(0, 40, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(1, 60, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(2, 80, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(3, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(4, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(5, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(6, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(7, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(8, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(9, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
-        flatList.add(generateFlat(10, 100, address, UUID.randomUUID().toString(), generateBillList(),rates));
+        flatList.add(generateFlat(0, 40, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(1, 60, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(2, 80, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(3, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(4, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(5, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(6, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(7, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(8, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(9, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
+        flatList.add(generateFlat(10, 100, address, UUID.randomUUID().toString(), generateBillList(), rates));
 
         block.setAdministrator(appUserService.findByEmail("super@gmail.com"));
         block.setFlats(flatList);

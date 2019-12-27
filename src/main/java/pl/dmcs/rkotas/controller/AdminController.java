@@ -34,8 +34,8 @@ public class AdminController {
     }
 
     @GetMapping("/users/{id}")
-    public String editUser(@PathVariable(value = "id") String id) {
-
+    public String deleteUser(@PathVariable(value = "id") String id) {
+        appUserService.deleteUser(Long.parseLong(id));
         return "redirect:/admin/users";
     }
 

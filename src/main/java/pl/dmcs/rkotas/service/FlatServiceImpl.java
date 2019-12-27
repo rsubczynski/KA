@@ -31,8 +31,8 @@ public class FlatServiceImpl implements FlatService {
     }
 
     @Override
-    public Flat reservedFlat(Flat flat) {
-        flat.setReserved(true);
+    public Flat reservedFlat(Flat flat, boolean reserved) {
+        flat.setReserved(reserved);
         return flatRepository.save(flat);
     }
 

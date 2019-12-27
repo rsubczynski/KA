@@ -26,13 +26,15 @@ public class AppUserServiceImpl implements AppUserService {
     private AppUserRepository appUserRepository;
     private AppUserRoleRepository appUserRoleRepository;
     private FlatService flatService;
+    private final BlockService blockService;
 
     @Autowired
     public AppUserServiceImpl(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository,
-                              FlatService flatService) {
+                              FlatService flatService, BlockService blockService) {
         this.appUserRepository = appUserRepository;
         this.appUserRoleRepository = appUserRoleRepository;
         this.flatService = flatService;
+        this.blockService = blockService;
     }
 
     private String hashPassword(String password) {
@@ -163,6 +165,11 @@ public class AppUserServiceImpl implements AppUserService {
         superUser.setPassword(hashPassword(password));
         superUser.setEnable(true);
         superUser.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_SUPER_USER"));
+        AppUserData appUserData = new AppUserData();
+        appUserData.setPhoneNumber("111222333");
+        appUserData.setFirstName("Jan");
+        appUserData.setLastName("Kowalski");
+        superUser.setUserData(appUserData);
         appUserRepository.save(superUser);
     }
 
@@ -173,6 +180,11 @@ public class AppUserServiceImpl implements AppUserService {
         admin.setPassword(hashPassword(password));
         admin.setEnable(true);
         admin.getAppUserRole().add(appUserRoleRepository.findByRole("ROLE_ADMIN"));
+        AppUserData appUserData = new AppUserData();
+        appUserData.setPhoneNumber("333222111");
+        appUserData.setFirstName("Marek");
+        appUserData.setLastName("Maj");
+        admin.setUserData(appUserData);
         appUserRepository.save(admin);
     }
 
@@ -199,6 +211,22 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public void deleteUser(long userId) {
         if (appUserRepository.exists(userId)) {
+            AppUser appUser = appUserRepository.findById(userId);
+            appUser.getAppUserRole().forEach(role -> {
+                if (role.getRole().equals("ROLE_USER") || role.getRole().equals("ROLE_GUEST")) {
+                    Flat flat = flatService.findBySecretCode(appUser.getSecretFlatCode());
+                    flatService.reservedFlat(flat, false);
+                }
+
+                if (role.getRole().equals("ROLE_SUPER_USER")) {
+                    List<Block> blockList = blockService.findAllByAdministratorId(appUser.getId());
+                    blockList.forEach(block -> {
+                        block.setAdministrator(null);
+                        blockService.save(block);
+                    });
+                }
+            });
+
             appUserRepository.delete(userId);
         }
     }

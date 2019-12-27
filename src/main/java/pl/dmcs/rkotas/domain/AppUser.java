@@ -11,15 +11,15 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name="appuser")
+@Table(name = "appuser")
 public class AppUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @NotNull
-    @Column(nullable=false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotNull

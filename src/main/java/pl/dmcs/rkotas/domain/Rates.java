@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Rates {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private LocalDateTime localeData;
