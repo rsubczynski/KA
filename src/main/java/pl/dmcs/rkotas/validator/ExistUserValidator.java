@@ -15,14 +15,14 @@ public @interface ExistUserValidator
 {
 
     // define default course code
-    public String value() default "";
+    String value() default "";
 
     // define default error message
-    public String message() default "User exist in database";
+    String message() default "User exist in database";
 
     // define default groups
-    public Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
     //define default payloads
-    public Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

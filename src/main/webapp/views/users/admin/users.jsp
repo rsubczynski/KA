@@ -41,11 +41,13 @@
                                         <td>${user.uidUser}</td>
                                         <td>${user.secretFlatCode}</td>
                                         <td>
+                                            <a href="${pageContext.request.contextPath}/admin/users/edit/${user.id}">
                                             <button class="btn btn-primary"><spring:message
                                                     code="button.editUserData"/></button>
+                                            </a>
                                         </td>
                                         <td>
-                                            <a data-method="DELETE" href="${pageContext.request.contextPath}/admin/users/${user.id}">
+                                            <a href="${pageContext.request.contextPath}/admin/users/del/${user.id}">
                                                 <button class="btn btn-danger">
                                                     <spring:message code="label.delete"/></button>
                                             </a>
@@ -95,16 +97,17 @@
                                         <td>${user.userData.lastName}</td>
                                         <td>${user.userData.phoneNumber}</td>
                                         <td>
-                                            <button class="btn btn-primary"><spring:message
-                                                    code="button.editUserData"/></button>
+                                            <a href="${pageContext.request.contextPath}/admin/users/edit/${user.id}">
+                                                <button class="btn btn-primary"><spring:message
+                                                        code="button.editUserData"/></button>
+                                            </a>
                                         </td>
                                         <td>
-                                            <a data-method="DELETE" href="${pageContext.request.contextPath}/admin/users/${user.id}">
+                                            <a href="${pageContext.request.contextPath}/admin/users/del/${user.id}">
                                                 <button class="btn btn-danger">
                                                     <spring:message code="label.delete"/></button>
                                             </a>
                                         </td>
-                                    </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -184,16 +187,17 @@
 
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary"><spring:message
-                                                    code="button.editUserData"/></button>
+                                            <a href="${pageContext.request.contextPath}/admin/users/edit/${user.id}">
+                                                <button class="btn btn-primary"><spring:message
+                                                        code="button.editUserData"/></button>
+                                            </a>
                                         </td>
                                         <td>
-                                        <a data-method="DELETE" href="${pageContext.request.contextPath}/admin/users/${user.id}">
-                                            <button class="btn btn-danger">
-                                                <spring:message code="label.delete"/></button>
-                                        </a>
+                                            <a href="${pageContext.request.contextPath}/admin/users/del/${user.id}">
+                                                <button class="btn btn-danger">
+                                                    <spring:message code="label.delete"/></button>
+                                            </a>
                                         </td>
-                                    </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -233,8 +237,10 @@
                                             <td>${user.userData.lastName}</td>
                                             <td>${user.userData.phoneNumber}</td>
                                             <td>
-                                                <button class="btn btn-primary"><spring:message
-                                                        code="button.editUserData"/></button>
+                                                <a href="${pageContext.request.contextPath}/admin/users/edit/${user.id}">
+                                                    <button class="btn btn-primary"><spring:message
+                                                            code="button.editUserData"/></button>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>

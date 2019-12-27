@@ -3,9 +3,8 @@ package pl.dmcs.rkotas.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.dmcs.rkotas.domain.AppUser;
 import pl.dmcs.rkotas.service.AppUserService;
 import pl.dmcs.rkotas.service.BlockService;
 
@@ -33,9 +32,28 @@ public class AdminController {
         return "users";
     }
 
-    @GetMapping("/users/{id}")
+    @RequestMapping("/users/edit/{id}")
+    public String editUser(@PathVariable(value = "id") String id) {
+        AppUser appUser = null;
+        try {
+            appUser = appUserService.findById(Long.parseLong(id));
+        } catch (Exception ignored) {
+
+        }
+        if (appUser == null) {
+            return "redirect:/admin/users";
+        } else {
+            return "editUsersPage";
+        }
+    }
+
+    @RequestMapping("/users/del/{id}")
     public String deleteUser(@PathVariable(value = "id") String id) {
-        appUserService.deleteUser(Long.parseLong(id));
+        try {
+            appUserService.deleteUser(Long.parseLong(id));
+        } catch (Exception ignored) {
+
+        }
         return "redirect:/admin/users";
     }
 

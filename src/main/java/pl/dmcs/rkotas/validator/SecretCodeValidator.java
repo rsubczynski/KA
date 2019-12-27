@@ -14,15 +14,15 @@ import java.lang.annotation.Target;
 public @interface SecretCodeValidator {
 
     // define default course code
-    public String value() default "";
+    String value() default "";
 
     // define default error message
-    public String message() default "Bad secret code";
+    String message() default "Bad secret code";
 
     // define default groups
-    public Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
     //define default payloads
-    public Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
 }

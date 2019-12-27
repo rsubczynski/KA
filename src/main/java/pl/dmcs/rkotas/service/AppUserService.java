@@ -41,5 +41,7 @@ public interface AppUserService {
 
     void deleteUser(long userId);
 
+    AppUser findById(long userId);
+
 }
 
